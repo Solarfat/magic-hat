@@ -47,13 +47,6 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Tag {
-    id        String   @id @default(cuid())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
 model User {
     id            String    @id @default(cuid())
     name          String?
@@ -63,6 +56,15 @@ model User {
     accounts      Account[]
     sessions      Session[]
     tags          Tag[]
+}
+
+model Tag {
+    id        String   @id @default(cuid())
+    name      String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {
