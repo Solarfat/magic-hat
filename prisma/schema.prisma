@@ -55,6 +55,16 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    tags          Tag[]
+}
+
+model Tag {
+    id        String   @id @default(cuid())
+    name      String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {
